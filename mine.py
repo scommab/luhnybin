@@ -1,3 +1,4 @@
+from multiprocessing import Pool
 import sys
 
 doubles = {
@@ -73,6 +74,8 @@ def luhn(s):
         s[start+i] = "X"
   return mixback(mix_back, s)
 
-a = sys.stdin.readlines()
-for l in a:
-  sys.stdout.write(luhn(l))
+
+a = [l for l in sys.stdin.readlines()]
+pool = Pool(10)
+for l in pool.map(luhn, a):
+  sys.stdout.write(l)
